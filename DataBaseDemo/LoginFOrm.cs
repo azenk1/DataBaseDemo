@@ -12,6 +12,8 @@ namespace DataBaseDemo
 {
     public partial class LoginForm : Form
     {
+
+
         public LoginForm()
         {
             InitializeComponent();
@@ -41,8 +43,10 @@ namespace DataBaseDemo
                 if(CheckPassword(userName, password))
                 {
                     MessageBox.Show("Login succesful!", "Login Successful");
-                    HomeForm home = new HomeForm();
+                    HomeForm home = new HomeForm(userName);
                     home.Show();
+                    this.Hide();
+                    
                     
                 }
                 else

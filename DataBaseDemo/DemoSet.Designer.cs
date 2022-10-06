@@ -332,6 +332,8 @@ namespace DataBaseDemo {
             
             private global::System.Data.DataColumn columnSerialNumber;
             
+            private global::System.Data.DataColumn columnusername;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public firearmsDataTable() {
@@ -439,6 +441,14 @@ namespace DataBaseDemo {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn usernameColumn {
+                get {
+                    return this.columnusername;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -474,7 +484,7 @@ namespace DataBaseDemo {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public firearmsRow AddfirearmsRow(string Make, string Model, string Type, string Action, string Chambering, decimal Price, System.DateTime PurchaseDate, string SerialNumber) {
+            public firearmsRow AddfirearmsRow(string Make, string Model, string Type, string Action, string Chambering, decimal Price, System.DateTime PurchaseDate, string SerialNumber, string username) {
                 firearmsRow rowfirearmsRow = ((firearmsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -485,7 +495,8 @@ namespace DataBaseDemo {
                         Chambering,
                         Price,
                         PurchaseDate,
-                        SerialNumber};
+                        SerialNumber,
+                        username};
                 rowfirearmsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowfirearmsRow);
                 return rowfirearmsRow;
@@ -524,6 +535,7 @@ namespace DataBaseDemo {
                 this.columnPrice = base.Columns["Price"];
                 this.columnPurchaseDate = base.Columns["PurchaseDate"];
                 this.columnSerialNumber = base.Columns["SerialNumber"];
+                this.columnusername = base.Columns["username"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -547,6 +559,8 @@ namespace DataBaseDemo {
                 base.Columns.Add(this.columnPurchaseDate);
                 this.columnSerialNumber = new global::System.Data.DataColumn("SerialNumber", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnSerialNumber);
+                this.columnusername = new global::System.Data.DataColumn("username", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnusername);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnFirearmID}, true));
                 this.columnFirearmID.AutoIncrement = true;
@@ -569,6 +583,7 @@ namespace DataBaseDemo {
                 this.columnPurchaseDate.AllowDBNull = false;
                 this.columnSerialNumber.AllowDBNull = false;
                 this.columnSerialNumber.MaxLength = 2147483647;
+                this.columnusername.MaxLength = 2147483647;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1072,6 +1087,34 @@ namespace DataBaseDemo {
                     this[this.tablefirearms.SerialNumberColumn] = value;
                 }
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string username {
+                get {
+                    try {
+                        return ((string)(this[this.tablefirearms.usernameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'username\' in table \'firearms\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablefirearms.usernameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsusernameNull() {
+                return this.IsNull(this.tablefirearms.usernameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetusernameNull() {
+                this[this.tablefirearms.usernameColumn] = global::System.Convert.DBNull;
+            }
         }
         
         /// <summary>
@@ -1313,19 +1356,20 @@ namespace DataBaseDemo.DemoSetTableAdapters {
             tableMapping.ColumnMappings.Add("Price", "Price");
             tableMapping.ColumnMappings.Add("PurchaseDate", "PurchaseDate");
             tableMapping.ColumnMappings.Add("SerialNumber", "SerialNumber");
+            tableMapping.ColumnMappings.Add("username", "username");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[firearms] WHERE (([FirearmID] = @Original_FirearmID) AND ([Pri" +
-                "ce] = @Original_Price) AND ([PurchaseDate] = @Original_PurchaseDate))";
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM [firearms] WHERE (([FirearmID] = @Original_FirearmID) AND ([Price] = " +
+                "@Original_Price) AND ([PurchaseDate] = @Original_PurchaseDate))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_FirearmID", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "FirearmID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Price", global::System.Data.SqlDbType.SmallMoney, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Price", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PurchaseDate", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PurchaseDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[firearms] ([Make], [Model], [Type], [Action], [Chambering], [Price], [PurchaseDate], [SerialNumber]) VALUES (@Make, @Model, @Type, @Action, @Chambering, @Price, @PurchaseDate, @SerialNumber);
-SELECT FirearmID, Make, Model, Type, Action, Chambering, Price, PurchaseDate, SerialNumber FROM firearms WHERE (FirearmID = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [firearms] ([Make], [Model], [Type], [Action], [Chambering], [Price], [PurchaseDate], [SerialNumber], [username]) VALUES (@Make, @Model, @Type, @Action, @Chambering, @Price, @PurchaseDate, @SerialNumber, @username);
+SELECT FirearmID, Make, Model, Type, Action, Chambering, Price, PurchaseDate, SerialNumber, username FROM firearms WHERE (FirearmID = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Make", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Make", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Model", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Model", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -1335,10 +1379,11 @@ SELECT FirearmID, Make, Model, Type, Action, Chambering, Price, PurchaseDate, Se
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Price", global::System.Data.SqlDbType.SmallMoney, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Price", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PurchaseDate", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PurchaseDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@SerialNumber", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SerialNumber", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@username", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "username", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[firearms] SET [Make] = @Make, [Model] = @Model, [Type] = @Type, [Action] = @Action, [Chambering] = @Chambering, [Price] = @Price, [PurchaseDate] = @PurchaseDate, [SerialNumber] = @SerialNumber WHERE (([FirearmID] = @Original_FirearmID) AND ([Price] = @Original_Price) AND ([PurchaseDate] = @Original_PurchaseDate));
-SELECT FirearmID, Make, Model, Type, Action, Chambering, Price, PurchaseDate, SerialNumber FROM firearms WHERE (FirearmID = @FirearmID)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [firearms] SET [Make] = @Make, [Model] = @Model, [Type] = @Type, [Action] = @Action, [Chambering] = @Chambering, [Price] = @Price, [PurchaseDate] = @PurchaseDate, [SerialNumber] = @SerialNumber, [username] = @username WHERE (([FirearmID] = @Original_FirearmID) AND ([Price] = @Original_Price) AND ([PurchaseDate] = @Original_PurchaseDate));
+SELECT FirearmID, Make, Model, Type, Action, Chambering, Price, PurchaseDate, SerialNumber, username FROM firearms WHERE (FirearmID = @FirearmID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Make", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Make", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Model", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Model", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -1348,6 +1393,7 @@ SELECT FirearmID, Make, Model, Type, Action, Chambering, Price, PurchaseDate, Se
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Price", global::System.Data.SqlDbType.SmallMoney, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Price", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PurchaseDate", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PurchaseDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@SerialNumber", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SerialNumber", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@username", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "username", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_FirearmID", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "FirearmID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Price", global::System.Data.SqlDbType.SmallMoney, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Price", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PurchaseDate", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PurchaseDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
@@ -1364,12 +1410,19 @@ SELECT FirearmID, Make, Model, Type, Action, Chambering, Price, PurchaseDate, Se
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[2];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT FirearmID, Make, Model, Type, Action, Chambering, Price, PurchaseDate, Ser" +
-                "ialNumber FROM dbo.firearms";
+            this._commandCollection[0].CommandText = "SELECT        FirearmID, Make, Model, Type, Action, Chambering, Price, PurchaseDa" +
+                "te, SerialNumber, username\r\nFROM            firearms";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "SELECT        FirearmID, Make, Model, Type, Action, Chambering, Price, PurchaseDa" +
+                "te, SerialNumber, username\r\nFROM            firearms\r\nWHERE        (username = @" +
+                "username)\r\nORDER BY PurchaseDate";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@username", global::System.Data.SqlDbType.VarChar, 2147483647, global::System.Data.ParameterDirection.Input, 0, 0, "username", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1391,6 +1444,42 @@ SELECT FirearmID, Make, Model, Type, Action, Chambering, Price, PurchaseDate, Se
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
         public virtual DemoSet.firearmsDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            DemoSet.firearmsDataTable dataTable = new DemoSet.firearmsDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillByUsername(DemoSet.firearmsDataTable dataTable, string username) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((username == null)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(username));
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual DemoSet.firearmsDataTable GetDataByUsername(string username) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((username == null)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(username));
+            }
             DemoSet.firearmsDataTable dataTable = new DemoSet.firearmsDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -1453,7 +1542,7 @@ SELECT FirearmID, Make, Model, Type, Action, Chambering, Price, PurchaseDate, Se
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string Make, string Model, string Type, string Action, string Chambering, decimal Price, System.DateTime PurchaseDate, string SerialNumber) {
+        public virtual int Insert(string Make, string Model, string Type, string Action, string Chambering, decimal Price, System.DateTime PurchaseDate, string SerialNumber, string username) {
             if ((Make == null)) {
                 throw new global::System.ArgumentNullException("Make");
             }
@@ -1492,6 +1581,12 @@ SELECT FirearmID, Make, Model, Type, Action, Chambering, Price, PurchaseDate, Se
             else {
                 this.Adapter.InsertCommand.Parameters[7].Value = ((string)(SerialNumber));
             }
+            if ((username == null)) {
+                this.Adapter.InsertCommand.Parameters[8].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[8].Value = ((string)(username));
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -1512,7 +1607,7 @@ SELECT FirearmID, Make, Model, Type, Action, Chambering, Price, PurchaseDate, Se
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string Make, string Model, string Type, string Action, string Chambering, decimal Price, System.DateTime PurchaseDate, string SerialNumber, long Original_FirearmID, decimal Original_Price, System.DateTime Original_PurchaseDate, long FirearmID) {
+        public virtual int Update(string Make, string Model, string Type, string Action, string Chambering, decimal Price, System.DateTime PurchaseDate, string SerialNumber, string username, long Original_FirearmID, decimal Original_Price, System.DateTime Original_PurchaseDate, long FirearmID) {
             if ((Make == null)) {
                 throw new global::System.ArgumentNullException("Make");
             }
@@ -1551,10 +1646,16 @@ SELECT FirearmID, Make, Model, Type, Action, Chambering, Price, PurchaseDate, Se
             else {
                 this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(SerialNumber));
             }
-            this.Adapter.UpdateCommand.Parameters[8].Value = ((long)(Original_FirearmID));
-            this.Adapter.UpdateCommand.Parameters[9].Value = ((decimal)(Original_Price));
-            this.Adapter.UpdateCommand.Parameters[10].Value = ((System.DateTime)(Original_PurchaseDate));
-            this.Adapter.UpdateCommand.Parameters[11].Value = ((long)(FirearmID));
+            if ((username == null)) {
+                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(username));
+            }
+            this.Adapter.UpdateCommand.Parameters[9].Value = ((long)(Original_FirearmID));
+            this.Adapter.UpdateCommand.Parameters[10].Value = ((decimal)(Original_Price));
+            this.Adapter.UpdateCommand.Parameters[11].Value = ((System.DateTime)(Original_PurchaseDate));
+            this.Adapter.UpdateCommand.Parameters[12].Value = ((long)(FirearmID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -1575,8 +1676,8 @@ SELECT FirearmID, Make, Model, Type, Action, Chambering, Price, PurchaseDate, Se
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string Make, string Model, string Type, string Action, string Chambering, decimal Price, System.DateTime PurchaseDate, string SerialNumber, long Original_FirearmID, decimal Original_Price, System.DateTime Original_PurchaseDate) {
-            return this.Update(Make, Model, Type, Action, Chambering, Price, PurchaseDate, SerialNumber, Original_FirearmID, Original_Price, Original_PurchaseDate, Original_FirearmID);
+        public virtual int Update(string Make, string Model, string Type, string Action, string Chambering, decimal Price, System.DateTime PurchaseDate, string SerialNumber, string username, long Original_FirearmID, decimal Original_Price, System.DateTime Original_PurchaseDate) {
+            return this.Update(Make, Model, Type, Action, Chambering, Price, PurchaseDate, SerialNumber, username, Original_FirearmID, Original_Price, Original_PurchaseDate, Original_FirearmID);
         }
     }
     
